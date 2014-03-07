@@ -5,7 +5,7 @@ require 'capistrano/setup'
 require 'capistrano/deploy'
 
 unless ARGV.any? { |task| task =~ /provision/ }
-  require 'capistrano/rvm'
+  require 'capistrano/rbenv'
   require 'capistrano/bundler'
   require 'capistrano/rails/assets'
   require 'capistrano/rails/migrations'
