@@ -1,6 +1,6 @@
 source 'http://ruby.taobao.org'
 
-gem 'rails'            
+gem 'rails', '~> 4.1.0.rc1'     
 gem 'arel'             
 
 # Use postgresql as the database for Active Record
