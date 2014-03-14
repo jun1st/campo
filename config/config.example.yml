@@ -36,4 +36,4 @@ production:
   <<: *default
 
   admin_emails:
-    # - admin@example.com
+    jun1st.feng@gmail.com
