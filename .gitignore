@@ -22,3 +22,7 @@
 
 # Ignore uploads
 /public/uploads
+
+config/deploy/production.rb
+
+config/deploy.rb
