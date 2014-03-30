@@ -13,8 +13,9 @@ class Topic < ActiveRecord::Base
 
   after_create :increment_counter_cache, :update_hot, :owner_subscribe
   after_destroy :decrement_counter_cache, unless: :trashed?
+  after_touch :update_hot
 
-  after_trash :decrement_counter_cache
+  after_trash :decrement_counter_cache, :delete_all_likes
   after_restore :increment_counter_cache
 
   def increment_counter_cache
@@ -29,21 +30,23 @@ class Topic < ActiveRecord::Base
     end
   end
 
+  def delete_all_likes
+    likes.delete_all
+  end
+
   def calculate_hot
     order = Math.log10([comments_count, 1].max)
     order + created_at.to_i / 45000
   end
 
   def update_hot
+    # reload because comments_count has been cache in associations
+    reload
     update_attribute :hot, calculate_hot
   end
 
   def owner_subscribe
     subscribe_by user
-  end
-
-  def after_comments_count_change
-    reload.update_hot
   end
 
   def total_pages
@@ -55,13 +58,14 @@ class Topic < ActiveRecord::Base
       query: {
         more_like_this: {
           fields: ['title', 'body'],
-          like_text: title + ' ' + body
+          like_text: title + '\n' + body
         }
       },
       filter: {
-        term: {
-          trashed: false
-        }
+        and: [
+          { term: { trashed: false } },
+          { not: { term: { id: id } } }
+        ]
       }
     )
   end

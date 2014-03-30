@@ -2,12 +2,12 @@ class UsersController < ApplicationController
   before_filter :no_login_required, only: [:new, :create]
 
   def new
-    store_location params[:return_to] if params[:return_to].present?
+    store_location params[:return_to]
     @user = User.new
   end
 
   def create
-    @user = User.new params.require(:user).permit(:username, :email, :name, :password)
+    @user = User.new params.require(:user).permit(:username, :email, :name, :password).merge(locale: locale)
     if @user.save
       login_as @user
       redirect_back_or_default root_url

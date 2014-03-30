@@ -1,22 +1,22 @@
-source 'https://rubygems.org'
+source 'http://ruby.taobao.org'
 
-gem 'rails',            github: "rails/rails"
-gem 'arel',             github: "rails/arel"
+gem 'rails', '~> 4.1.0.rc1'     
+gem 'arel'             
 
 # Use postgresql as the database for Active Record
 gem 'pg'
 
 # Use edge version of sprockets-rails
-gem 'sprockets-rails',  github: "rails/sprockets-rails"
+gem 'sprockets-rails' 
 
 # Use SCSS for stylesheets
-gem 'sass-rails',       github: "rails/sass-rails"
+gem 'sass-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails',     github: "rails/coffee-rails"
+gem 'coffee-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',     platforms: :ruby
@@ -95,11 +95,18 @@ group :development do
 
   # Visual email testing
   gem 'mail_view', '~> 2.0.4'
+
+  # Deploy tool
+  gem 'capistrano', '~> 3.1.0'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-bundler', '~> 1.1.2'
+  gem 'capistrano-rails', '~> 1.0.0'
 end
 
 group :development, :test do
   gem 'factory_girl_rails', '~> 4.3.0'
 end
 
-gem 'mongo'
-gem 'bson_ext'
+group :production do
+  gem 'unicorn', '~> 4.8.2'
+end

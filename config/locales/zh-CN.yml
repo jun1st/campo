@@ -15,6 +15,14 @@ zh-CN:
         password: "密码"
         password_confirmation: "密码确认"
         username: "用户名"
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              format: "无效的邮件格式"
+            username:
+              format: "只能使用字母、数字或 - 号，并且不能以 - 号开头"
   admin:
     attachments:
       index:
@@ -109,6 +117,13 @@ zh-CN:
       add_this_comment: "添加评论"
       cancel: "取消"
       save_changes: "保存修改"
+  helpers:
+    comments:
+      deleted_entry: "[已删除内容]"
+  karminari:
+    campo:
+      paginator:
+        page: "第 %{page} 页"
   layouts:
     admin:
       admin: "%{name} 管理"
@@ -141,12 +156,17 @@ zh-CN:
       mark_all_as_read: "标记所有为已读"
       no_notifications: "没有通知"
       notifications: "通知"
+    notification:
+      comment:
+        commented_on: "评论了"
+      mention:
+        mentioned_you_on: "提及你于"
   passwords:
     edit:
       password_reset: "密码重置"
       save_changes: "保存修改"
     flashes:
-      successfully_update: "成功更新，现在可以使用新密码登陆！"
+      successfully_update: "成功更新，现在可以使用新密码登录！"
       token_invalid: "密码重置地址过期或无效，请重新发送重置邮件。"
       user_email_not_found: "没有找到此用户。"
     new:
@@ -235,10 +255,12 @@ zh-CN:
       add_this_comment: "添加评论"
       comments: "评论"
       delete_confirm: "你确定要删除此话题吗？"
+      login: "登录"
       no_comment_yet: "还没有评论"
       no_more_topics: "没有更多话题"
       or: "或"
       related_topics: "相关话题"
+      sign_up: "注册"
       to_comment: "后发表评论"
       topics: "话题"
       your_account_had_been_locked: "你的帐号已被锁定"

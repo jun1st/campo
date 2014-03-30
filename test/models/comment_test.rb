@@ -21,6 +21,13 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal 0, topic.reload.comments_count
   end
 
+  test "should touch commentable" do
+    time = 1.day.ago
+    topic = create(:topic, updated_at: time)
+    create(:comment, commentable: topic)
+    assert topic.updated_at > time
+  end
+
   test "should count page" do
     topic = create(:topic)
     3.times { create :comment, commentable: topic }
@@ -51,6 +58,32 @@ class CommentTest < ActiveSupport::TestCase
 
     assert_difference "user.notifications.named('comment').count" do
       create(:comment, commentable: topic)
+    end
+  end
+
+  test "should delete all related notifications after trash" do
+    # notification name: comment
+    comment = create(:comment)
+
+    assert_difference "Notification.count", -1 do
+      comment.trash
+    end
+  end
+
+  test "should delete all related notifications after destroy" do
+    # notification name: comment
+    comment = create(:comment)
+
+    assert_difference "Notification.count", -1 do
+      comment.destroy
+    end
+  end
+
+  test "should delete_all likes after trash" do
+    comment = create(:comment)
+    create :like, likeable: comment
+    assert_difference "Like.count", -1 do
+      comment.trash
     end
   end
 end
