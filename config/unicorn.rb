@@ -1,5 +1,5 @@
 APP_PATH = File.expand_path(File.expand_path(File.dirname(__FILE__)) + "/../")
-SHARED_PATH = File.expand_path(APP_PATH + "/../")
+SHARED_PATH = File.expand_path(APP_PATH + "/../" + "/shared/")
 
 worker_processes 2
 working_directory APP_PATH
